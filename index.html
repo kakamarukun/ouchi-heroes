@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>おうちヒーローズ Version 1.0</title>
-<meta name="description" content="家族のお手伝いと仲間の成長を楽しむ、おうちヒーローズ Version 1.0">
+<title>おうちヒーローズ Version 1.1</title>
+<meta name="description" content="家族のお手伝いと仲間の成長を楽しむ、おうちヒーローズ Version 1.1">
 <meta name="application-name" content="おうちヒーローズ">
 <style>
   :root {
@@ -2800,7 +2800,7 @@ header .brand{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
         <input id="pin" class="pin-input" inputmode="numeric" maxlength="4" placeholder="••••">
         <div style="height:12px"></div>
         <button class="primary" onclick="checkPin()">確認する</button>
-        <p class="muted" style="margin-top:10px;">試作品の暗証番号：1234</p>
+        <p class="muted" style="margin-top:10px;">初期暗証番号は「1234」です。親画面に入ったら変更してください。</p>
       </div>
     </section>
 
@@ -3160,6 +3160,26 @@ header .brand{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
       </div>
 
       <div class="card">
+        <h3>🔐 暗証番号を変更</h3>
+        <p class="muted">親画面に入るための4桁の暗証番号を変更できます。</p>
+        <label class="form-label">現在の暗証番号</label>
+        <input id="currentParentPin" class="pin-input" inputmode="numeric" maxlength="4" placeholder="••••">
+        <label class="form-label">新しい暗証番号</label>
+        <input id="newParentPin" class="pin-input" inputmode="numeric" maxlength="4" placeholder="4桁">
+        <label class="form-label">新しい暗証番号（確認）</label>
+        <input id="confirmParentPin" class="pin-input" inputmode="numeric" maxlength="4" placeholder="もう一度">
+        <div style="height:12px"></div>
+        <button class="primary" onclick="changeParentPin()">暗証番号を変更する</button>
+      </div>
+
+      <div class="card update-info-card">
+        <h3>📢 お知らせ・アップデート <span id="updateInfoNewBadge" class="update-new-badge" hidden>NEW</span></h3>
+        <p id="updateInfoSummary" class="muted">最新の更新内容を確認できます。</p>
+        <button class="orange" type="button" onclick="openUpdateInfo()">アップデート情報を見る</button>
+        <button id="checkUpdateButton" class="secondary" type="button" onclick="checkForGameUpdate(true)" style="margin-top:8px;">最新版を確認する</button>
+      </div>
+
+      <div class="card">
         <h3>データ管理</h3>
         <p class="muted">進行状況は、この端末のブラウザに自動保存されます。</p>
         <button class="danger" onclick="resetAllData()">最初からやり直す</button>
@@ -3168,7 +3188,7 @@ header .brand{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
       <button class="danger" onclick="showScreen('home')">親画面を閉じる</button>
     </section>
   </main>
-  <div class="v1-release-footer">おうちヒーローズ Version 1.0</div>
+  <div class="v1-release-footer">おうちヒーローズ Version 1.1</div>
 
   <div id="celebrationOverlay" class="celebration-overlay">
     <div id="confettiLayer"></div>
@@ -3280,6 +3300,7 @@ let currentScreenId = 'home';
 let selectedQuestIndex = null;
 let lastRewardView = null;
 let autosaveTimeout = null;
+let parentPinCode = '1234';
 
 function showScreen(id, options={}){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -3436,7 +3457,7 @@ function completeQuest(){
   showScreen('waiting');
 }
 function checkPin(){
-  if(document.getElementById('pin').value === '1234'){
+  if(document.getElementById('pin').value === parentPinCode){
     showScreen('approve');
   }else{
     alert('暗証番号が違います');
@@ -4148,7 +4169,7 @@ function updateStatus(){
 }
 
 function openParentDashboard(){
-  if(document.getElementById('parentPin').value !== '1234'){
+  if(document.getElementById('parentPin').value !== parentPinCode){
     alert('暗証番号が違います');
     return;
   }
@@ -4156,6 +4177,35 @@ function openParentDashboard(){
   renderParentDashboard();
 renderCalendar();
   showScreen('parentDashboard');
+}
+
+function changeParentPin(){
+  const current=document.getElementById('currentParentPin')?.value.trim() || '';
+  const next=document.getElementById('newParentPin')?.value.trim() || '';
+  const confirmPin=document.getElementById('confirmParentPin')?.value.trim() || '';
+  if(current!==parentPinCode){
+    alert('現在の暗証番号が違います');
+    return;
+  }
+  if(!/^\d{4}$/.test(next)){
+    alert('新しい暗証番号は数字4桁で入力してください');
+    return;
+  }
+  if(next!==confirmPin){
+    alert('新しい暗証番号が一致していません');
+    return;
+  }
+  if(next===parentPinCode){
+    alert('現在とは違う暗証番号を入力してください');
+    return;
+  }
+  parentPinCode=next;
+  ['currentParentPin','newParentPin','confirmParentPin'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value='';
+  });
+  saveGame();
+  alert('暗証番号を変更しました。忘れないように保管してください。');
 }
 
 
@@ -4558,7 +4608,7 @@ function restoreGameSession(){
 
 function installAutosaveListeners(){
   document.querySelectorAll('input,select,textarea').forEach(el=>{
-    if(el.id==='pin' || el.id==='parentPin') return;
+    if(['pin','parentPin','currentParentPin','newParentPin','confirmParentPin'].includes(el.id)) return;
     el.addEventListener('input',()=>queueAutosave());
     el.addEventListener('change',()=>queueAutosave());
   });
@@ -4592,6 +4642,7 @@ function installAutosaveListeners(){
 function saveGame(){
   const data = {
     schemaVersion: V1_SAVE_SCHEMA_VERSION,
+    parentPinCode,
     points,
     exp,
     level,
@@ -4766,6 +4817,7 @@ function normalizeSavedGameData(input){
   const data=safeObject(input,{});
   data.schemaVersion=finiteOr(data.schemaVersion,V1_SAVE_SCHEMA_VERSION,0,999);
   data.saveMeta=safeObject(data.saveMeta,{});
+  data.parentPinCode=(typeof data.parentPinCode==='string' && /^\d{4}$/.test(data.parentPinCode)) ? data.parentPinCode : '1234';
   data.points=finiteOr(data.points,0,0);
   data.exp=finiteOr(data.exp,0,0);
   data.level=finiteOr(data.level,1,1);
@@ -4842,6 +4894,7 @@ function loadGame(){
       commitMainSave({...data,saveMeta:{...(data.saveMeta||{}),gameVersion:'1.0',schemaVersion:V1_SAVE_SCHEMA_VERSION,savedAt:Date.now()}});
     }
 
+    if(typeof data.parentPinCode==='string' && /^\d{4}$/.test(data.parentPinCode)) parentPinCode = data.parentPinCode;
     if(Number.isFinite(data.points)) points = data.points;
     if(Number.isFinite(data.exp)) exp = data.exp;
     if(Number.isFinite(data.level)) level = data.level;
@@ -5090,7 +5143,7 @@ function renderRewardShop(){
 
 function requestReward(i){
   const pin=prompt('親のPINを入力してください');
-  if(pin!=='1234'){ alert('PINが違います'); return; }
+  if(pin!==parentPinCode){ alert('PINが違います'); return; }
   const r=rewards[i];
   if(points<r.cost){ alert('ポイント不足'); return; }
   points-=r.cost;
@@ -7425,10 +7478,85 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </script>
 
 
+
+<style id="v1UpdateInfoStyles">
+.update-new-badge{display:inline-flex;align-items:center;justify-content:center;margin-left:6px;padding:3px 8px;border-radius:999px;background:#ff7043;color:#fff;font-size:11px;font-weight:900;vertical-align:middle;animation:updateBadgePulse 1.5s ease-in-out infinite}
+@keyframes updateBadgePulse{50%{transform:scale(1.08)}}
+.update-modal{position:fixed;inset:0;z-index:32000;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(31,38,46,.62)}
+.update-modal.open{display:flex}
+.update-modal-card{width:min(520px,100%);max-height:min(82vh,720px);overflow:auto;background:#fffdf7;border:3px solid #f1d38a;border-radius:24px;padding:18px;box-shadow:0 18px 55px rgba(30,30,40,.35);color:#4e443d}
+.update-modal-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}.update-modal-head h2{margin:0;font-size:21px}.update-modal-head button{margin-left:auto;width:auto;padding:8px 12px;background:#eee7df;color:#655b53;box-shadow:none}
+.update-version-card{border:2px solid #eadfbf;border-radius:18px;padding:14px;margin:12px 0;background:#fff}.update-version-card.latest{border-color:#f2b85b;background:#fffaf0}.update-version-label{display:flex;align-items:center;gap:8px;font-weight:900}.update-version-card ul{padding-left:22px;margin:10px 0 0}.update-version-card li{margin:7px 0;line-height:1.55}.update-status-box{margin-top:12px;padding:12px;border-radius:14px;background:#f4f0e7;font-size:13px;line-height:1.6}.update-status-box.available{background:#fff2d8;border:2px solid #f0b84d}.update-release-popup{position:fixed;inset:0;z-index:31900;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(30,35,45,.58)}.update-release-popup.open{display:flex}.update-release-popup-card{width:min(430px,100%);background:#fffdf5;border:3px solid #f0ce70;border-radius:24px;padding:22px;text-align:center;box-shadow:0 18px 55px rgba(20,20,30,.38)}.update-release-icon{font-size:54px}.update-release-popup-card h2{margin:8px 0}.update-release-popup-card p{line-height:1.7}.update-release-popup-card button{margin-top:8px}
+</style>
+
+<div id="updateInfoModal" class="update-modal" aria-hidden="true">
+  <div class="update-modal-card" role="dialog" aria-modal="true" aria-labelledby="updateInfoTitle">
+    <div class="update-modal-head">
+      <h2 id="updateInfoTitle">📢 お知らせ・アップデート</h2>
+      <button type="button" onclick="closeUpdateInfo()" aria-label="閉じる">✕</button>
+    </div>
+    <div class="update-version-card latest">
+      <div class="update-version-label"><span class="update-new-badge">最新</span> Version 1.1</div>
+      <ul>
+        <li>🔐 親画面の暗証番号を変更できる機能を追加</li>
+        <li>📢 ゲーム内でアップデート情報を確認できる画面を追加</li>
+        <li>🟠 新しい更新があると「NEW」を表示し、確認後に消える機能を追加</li>
+        <li>🎉 更新後に一度だけアップデートのお知らせを表示</li>
+        <li>🌐 公開中の最新版を確認できる機能を追加</li>
+        <li>💾 これまでのセーブデータを引き継ぐ構成を維持</li>
+      </ul>
+    </div>
+    <details class="update-version-card">
+      <summary><b>Version 1.0</b></summary>
+      <ul>
+        <li>🎉 おうちヒーローズ公開</li>
+        <li>📋 お手伝いクエスト</li>
+        <li>👥 仲間育成</li>
+        <li>🎁 ごほうび機能</li>
+        <li>🔒 親画面・セーブ機能</li>
+      </ul>
+    </details>
+    <div id="updateCheckStatus" class="update-status-box" aria-live="polite">現在のバージョン：1.1.0</div>
+    <button class="orange" type="button" onclick="checkForGameUpdate(true)">最新版を確認する</button>
+  </div>
+</div>
+
+<div id="updateReleasePopup" class="update-release-popup" aria-hidden="true">
+  <div class="update-release-popup-card" role="dialog" aria-modal="true" aria-labelledby="updateReleaseTitle">
+    <div class="update-release-icon">🎉</div>
+    <h2 id="updateReleaseTitle">Version 1.1に更新されました！</h2>
+    <p>暗証番号の変更、アップデート情報、NEW表示などが追加されました。これまでのセーブデータはそのまま遊べます。</p>
+    <button class="primary" type="button" onclick="closeReleasePopup(true)">更新内容を見る</button>
+    <button class="secondary" type="button" onclick="closeReleasePopup(false)" style="margin-top:8px;">あとで見る</button>
+  </div>
+</div>
+
+<script id="v1UpdateInfoSystem">
+(function(){
+'use strict';
+const CURRENT_VERSION='1.1.0';
+const LATEST_NEWS_ID='release-1.1.0';
+const SEEN_NEWS_KEY='ouchiHeroesSeenUpdateNews';
+const SEEN_RELEASE_KEY='ouchiHeroesSeenReleasePopup';
+const VERSION_URL='./version.json';
+function getItem(key){try{return localStorage.getItem(key)}catch(e){return null}}
+function setItem(key,value){try{localStorage.setItem(key,value)}catch(e){}}
+function compareVersions(a,b){const pa=String(a).split('.').map(n=>parseInt(n,10)||0),pb=String(b).split('.').map(n=>parseInt(n,10)||0);for(let i=0;i<Math.max(pa.length,pb.length);i++){const d=(pa[i]||0)-(pb[i]||0);if(d)return d}return 0}
+function refreshBadge(){const unread=getItem(SEEN_NEWS_KEY)!==LATEST_NEWS_ID;const badge=document.getElementById('updateInfoNewBadge');if(badge)badge.hidden=!unread;const summary=document.getElementById('updateInfoSummary');if(summary)summary.textContent=unread?'新しいアップデート情報があります。':'最新の更新内容を確認できます。'}
+window.openUpdateInfo=function(){setItem(SEEN_NEWS_KEY,LATEST_NEWS_ID);refreshBadge();const modal=document.getElementById('updateInfoModal');if(modal){modal.classList.add('open');modal.setAttribute('aria-hidden','false')}checkForGameUpdate(false)};
+window.closeUpdateInfo=function(){const modal=document.getElementById('updateInfoModal');if(modal){modal.classList.remove('open');modal.setAttribute('aria-hidden','true')}};
+window.closeReleasePopup=function(showDetails){setItem(SEEN_RELEASE_KEY,CURRENT_VERSION);const popup=document.getElementById('updateReleasePopup');if(popup){popup.classList.remove('open');popup.setAttribute('aria-hidden','true')}if(showDetails)setTimeout(openUpdateInfo,100)};
+window.checkForGameUpdate=async function(showFeedback){const status=document.getElementById('updateCheckStatus');const button=document.getElementById('checkUpdateButton');if(showFeedback&&status){status.className='update-status-box';status.textContent='最新版を確認しています…'}if(button)button.disabled=true;try{const response=await fetch(VERSION_URL+'?t='+Date.now(),{cache:'no-store'});if(!response.ok)throw new Error('version file not found');const data=await response.json();const latest=String(data.version||CURRENT_VERSION);if(compareVersions(latest,CURRENT_VERSION)>0){if(status){status.className='update-status-box available';status.innerHTML='🆕 新しいVersion '+latest+'が公開されています。<br>ページを再読み込みすると最新版を利用できます。'}if(showFeedback&&confirm('新しいVersion '+latest+'が公開されています。今すぐ再読み込みしますか？'))location.reload()}else if(status){status.className='update-status-box';status.textContent='✅ Version '+CURRENT_VERSION+'は最新版です。'}}catch(e){if(status&&showFeedback){status.className='update-status-box';status.textContent='現在のバージョン：'+CURRENT_VERSION+'（オンライン確認はできませんでした）'}}finally{if(button)button.disabled=false}};
+function maybeShowReleasePopup(){if(getItem(SEEN_RELEASE_KEY)===CURRENT_VERSION)return;const show=()=>{if(document.body.classList.contains('v1-tutorial-open')){setTimeout(show,1200);return}const popup=document.getElementById('updateReleasePopup');if(popup){popup.classList.add('open');popup.setAttribute('aria-hidden','false')}};setTimeout(show,2600)}
+function init(){refreshBadge();maybeShowReleasePopup();setTimeout(()=>checkForGameUpdate(false),5000);document.getElementById('updateInfoModal')?.addEventListener('click',e=>{if(e.target.id==='updateInfoModal')closeUpdateInfo()});document.getElementById('updateReleasePopup')?.addEventListener('click',e=>{if(e.target.id==='updateReleasePopup')closeReleasePopup(false)})}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
 <script id="v1-final-release-meta">
 window.OUCHI_HEROES_RELEASE=Object.freeze({
   name:'おうちヒーローズ',
-  version:'1.0.0',
+  version:'1.1.0',
   saveSchemaVersion:2,
   releaseChannel:'stable',
   completedAt:'2026-07-23'
