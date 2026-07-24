@@ -2935,6 +2935,51 @@ header .brand{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
   },{once:true});
 })();
 </script>
+
+<script id="ga-diagnostic">
+window.addEventListener('load',()=>{
+  const box=document.createElement('div');
+  box.style.cssText='position:fixed;top:8px;right:8px;z-index:999999;background:#111;color:#0f0;padding:8px 10px;border-radius:8px;font:12px monospace;opacity:.9';
+  box.textContent='GA診断:開始';
+  document.body.appendChild(box);
+
+  function log(msg){
+    box.textContent='GA診断:'+msg;
+    console.log('[GA]',msg);
+  }
+
+  if(typeof gtag!=='function'){
+    log('gtag未検出');
+    return;
+  }
+
+  log('gtag検出');
+
+  try{
+    gtag('event','diagnostic_ping',{
+      debug_mode:true,
+      event_time:Date.now()
+    });
+    log('diagnostic送信');
+  }catch(e){
+    log('送信失敗');
+    console.error(e);
+  }
+
+  setInterval(()=>{
+    try{
+      gtag('event','heartbeat_test',{
+        debug_mode:true,
+        ts:Date.now()
+      });
+      log('heartbeat送信');
+    }catch(e){
+      log('heartbeat失敗');
+    }
+  },5000);
+});
+</script>
+
 </head>
 <body>
 <div class="app">
