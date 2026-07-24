@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>おうちヒーローズ Version 1.2 Phase2-3.2</title>
-<meta name="description" content="家族のお手伝いと仲間の成長を楽しむ、おうちヒーローズ Version 1.2 Phase2-3.2">
+<title>おうちヒーローズ Version 1.2 Phase2-3.3</title>
+<meta name="description" content="家族のお手伝いと仲間の成長を楽しむ、おうちヒーローズ Version 1.2 Phase2-3.3">
 <meta name="application-name" content="おうちヒーローズ">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B0BQWPQEE1"></script>
@@ -2935,56 +2935,11 @@ header .brand{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
   },{once:true});
 })();
 </script>
-
-<script id="ga-diagnostic">
-window.addEventListener('load',()=>{
-  const box=document.createElement('div');
-  box.style.cssText='position:fixed;top:8px;right:8px;z-index:999999;background:#111;color:#0f0;padding:8px 10px;border-radius:8px;font:12px monospace;opacity:.9';
-  box.textContent='GA診断:開始';
-  document.body.appendChild(box);
-
-  function log(msg){
-    box.textContent='GA診断:'+msg;
-    console.log('[GA]',msg);
-  }
-
-  if(typeof gtag!=='function'){
-    log('gtag未検出');
-    return;
-  }
-
-  log('gtag検出');
-
-  try{
-    gtag('event','diagnostic_ping',{
-      debug_mode:true,
-      event_time:Date.now()
-    });
-    log('diagnostic送信');
-  }catch(e){
-    log('送信失敗');
-    console.error(e);
-  }
-
-  setInterval(()=>{
-    try{
-      gtag('event','heartbeat_test',{
-        debug_mode:true,
-        ts:Date.now()
-      });
-      log('heartbeat送信');
-    }catch(e){
-      log('heartbeat失敗');
-    }
-  },5000);
-});
-</script>
-
 </head>
 <body>
 <div class="app">
   <header>
-    <div class="brand">おうちヒーローズ <span class="v1-release-badge">Version 1.2 Phase2-3.2</span></div>
+    <div class="brand">おうちヒーローズ <span class="v1-release-badge">Version 1.2 Phase2-3.3</span></div>
     <div class="points">⭐ <span id="points">0</span> pt</div>
   </header>
 
@@ -3566,7 +3521,7 @@ window.addEventListener('load',()=>{
       <button class="danger" onclick="showScreen('home')">親画面を閉じる</button>
     </section>
   </main>
-  <div class="v1-release-footer">おうちヒーローズ Version 1.2 Phase2-3.2</div>
+  <div class="v1-release-footer">おうちヒーローズ Version 1.2 Phase2-3.3</div>
 
   <div id="celebrationOverlay" class="celebration-overlay">
     <div id="confettiLayer"></div>
@@ -4299,7 +4254,8 @@ function renderHomeFriends(){
     const leader=companionTeam[0]===c.id;
     const personality=getCompanionPersonalityProfile(c);
     const bodyType=resolveCompanionBodyType(c,d);
-    return `<button class="home-friend" data-id="${c.id}" data-personality="${personality.key}"
+    const rarity=spiritRarityInfo(c.rarity);
+    return `<button class="home-friend ${rarity.className}" data-id="${c.id}" data-personality="${personality.key}"
       data-x="${p.left}" data-y="${p.top}"
       style="left:${p.left}%;top:${p.top}%;--depth-scale:${(.70+((p.top-45)/35)*.34).toFixed(3)}"
       onclick="homeFriendTap('${c.id}')" aria-label="${d.name}と話す">
@@ -8247,7 +8203,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       <button type="button" onclick="closeUpdateInfo()" aria-label="閉じる">✕</button>
     </div>
     <div class="update-version-card latest">
-      <div class="update-version-label"><span class="update-new-badge">最新</span> Version 1.2 Phase2-3.2</div>
+      <div class="update-version-label"><span class="update-new-badge">最新</span> Version 1.2 Phase2-3.3</div>
       <ul>
         <li>🔐 親画面の暗証番号を変更できる機能を追加</li>
         <li>📢 ゲーム内でアップデート情報を確認できる画面を追加</li>
