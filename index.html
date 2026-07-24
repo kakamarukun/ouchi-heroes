@@ -6,17 +6,14 @@
 <title>おうちヒーローズ Version 1.1</title>
 <meta name="description" content="家族のお手伝いと仲間の成長を楽しむ、おうちヒーローズ Version 1.1">
 <meta name="application-name" content="おうちヒーローズ">
-<!-- Google tag (gtag.js) - おうちヒーローズ アクセス解析 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B0BQWPGEE1"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B0BQWPQEE1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-B0BQWPGEE1', {
-    'anonymize_ip': true
-  });
+  gtag('config', 'G-B0BQWPQEE1');
 </script>
-
 <style>
   :root {
     --green:#4caf50;
@@ -4371,10 +4368,15 @@ function renderSpiritCandidate(){
 
 function regenerateSpiritCandidate(){
   if(!pendingSpirit) return;
-  const suffix=['ラ','ン','ル','ナ','ト'];
-  const h=hashText(pendingSpirit.name+Date.now());
-  pendingSpirit.name=pendingSpirit.name+suffix[h%suffix.length];
+
   const template=spiritTemplates[pendingSpirit.category] || spiritTemplates.clean;
+  const h=hashText(`${pendingSpirit.questTitle}_${Date.now()}_${Math.random()}`);
+
+  // 前の名前へ文字を付け足さず、毎回新しい候補名を作り直す
+  pendingSpirit.name=
+    template.starts[h%template.starts.length]+
+    template.ends[Math.floor(h/7)%template.ends.length];
+
   pendingSpirit.icon=template.icons[Math.floor(h/3)%template.icons.length];
   pendingSpirit.personality=template.personalities[Math.floor(h/5)%template.personalities.length];
   pendingSpirit.favorite=template.likes[Math.floor(h/7)%template.likes.length];
