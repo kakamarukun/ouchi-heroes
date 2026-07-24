@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>おうちヒーローズ Version 1.1</title>
-<meta name="description" content="家族のお手伝いと仲間の成長を楽しむ、おうちヒーローズ Version 1.1">
+<title>おうちヒーローズ Version 1.2 Phase2-3</title>
+<meta name="description" content="家族のお手伝いと仲間の成長を楽しむ、おうちヒーローズ Version 1.2 Phase2-3">
 <meta name="application-name" content="おうちヒーローズ">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B0BQWPQEE1"></script>
@@ -673,6 +673,193 @@
     font-size:8px;
     font-weight:900;
   }
+
+
+  /* ===== Phase2-2：精霊レア度 ===== */
+  .spirit-rarity-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    margin:5px 0 3px;
+    padding:5px 10px;
+    border-radius:999px;
+    font-size:10px;
+    font-weight:1000;
+    letter-spacing:.02em;
+    border:2px solid transparent;
+  }
+  .spirit-rarity-badge.rarity-normal{background:#f1f2f4;color:#5f6670;border-color:#d9dce1}
+  .spirit-rarity-badge.rarity-rare{background:#e7f5ff;color:#176b9d;border-color:#85cfff}
+  .spirit-rarity-badge.rarity-superRare{background:#f2e9ff;color:#7042a8;border-color:#c69cff;box-shadow:0 0 13px rgba(153,94,220,.25)}
+  .spirit-rarity-badge.rarity-legend{
+    background:linear-gradient(90deg,#fff2a8,#ffd5f4,#ccecff,#fff2a8);
+    background-size:220% 100%;
+    color:#7b4d00;
+    border-color:#ffc94a;
+    box-shadow:0 0 18px rgba(255,190,40,.42);
+    animation:rarityLegendShine 2s linear infinite;
+  }
+
+  .spirit-preview.rarity-normal{border-color:#dfe2e6}
+  .spirit-preview.rarity-rare{border-color:#75caff;background:linear-gradient(145deg,#fff,#edf8ff)}
+  .spirit-preview.rarity-superRare{
+    border-color:#bd88ff;
+    background:linear-gradient(145deg,#fff,#f5edff);
+    box-shadow:0 8px 26px rgba(137,76,204,.20);
+    animation:spiritAppear .35s ease-out, rarityPulse 1.7s ease-in-out infinite alternate;
+  }
+  .spirit-preview.rarity-legend{
+    border-color:#ffc642;
+    background:linear-gradient(145deg,#fff9c7,#ffeefb,#eaf7ff);
+    box-shadow:0 10px 32px rgba(255,174,0,.30);
+    animation:spiritAppear .35s ease-out, rarityLegendPulse 1.25s ease-in-out infinite alternate;
+  }
+  .spirit-preview.rarity-rare .spirit-preview-avatar{box-shadow:0 0 0 5px #d6f0ff,0 7px 18px rgba(53,155,218,.23)}
+  .spirit-preview.rarity-superRare .spirit-preview-avatar{box-shadow:0 0 0 5px #ead9ff,0 0 20px rgba(147,83,219,.40)}
+  .spirit-preview.rarity-legend .spirit-preview-avatar{
+    box-shadow:0 0 0 5px #fff0a2,0 0 28px rgba(255,172,0,.62);
+    animation:rarityAvatarFloat 1.1s ease-in-out infinite alternate;
+  }
+
+  .companion-card.rarity-rare{border-color:#79cfff;background:linear-gradient(145deg,#fff,#eff9ff)}
+  .companion-card.rarity-superRare{border-color:#bc8cff;background:linear-gradient(145deg,#fff,#f6efff);box-shadow:0 5px 17px rgba(136,77,196,.16)}
+  .companion-card.rarity-legend{
+    border-color:#ffc83d;
+    background:linear-gradient(145deg,#fff8c7,#fff,#ffeef8);
+    box-shadow:0 6px 21px rgba(255,177,0,.24);
+  }
+  .companion-card.rarity-legend .companion-avatar{animation:rarityAvatarFloat 1.2s ease-in-out infinite alternate}
+  .home-friend.rarity-rare .friend-character-rig{filter:drop-shadow(0 0 6px rgba(55,169,235,.58))}
+  .home-friend.rarity-superRare .friend-character-rig{filter:drop-shadow(0 0 8px rgba(154,81,224,.68))}
+  .home-friend.rarity-legend .friend-character-rig{filter:drop-shadow(0 0 10px rgba(255,184,0,.82))}
+  .home-friend-rarity{
+    position:absolute;
+    right:-9px;
+    top:-12px;
+    z-index:8;
+    min-width:22px;
+    height:22px;
+    padding:0 5px;
+    border-radius:999px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff;
+    border:2px solid rgba(255,255,255,.9);
+    box-shadow:0 3px 8px rgba(0,0,0,.15);
+    font-size:11px;
+    font-weight:1000;
+  }
+
+  @keyframes rarityPulse{from{transform:translateY(0)}to{transform:translateY(-2px);box-shadow:0 11px 30px rgba(137,76,204,.30)}}
+  @keyframes rarityLegendPulse{from{transform:translateY(0) scale(1)}to{transform:translateY(-3px) scale(1.008);box-shadow:0 13px 38px rgba(255,174,0,.42)}}
+  @keyframes rarityAvatarFloat{from{transform:translateY(0) rotate(-2deg)}to{transform:translateY(-5px) rotate(2deg)}}
+  @keyframes rarityLegendShine{to{background-position:-220% 0}}
+
+  /* ===== Phase2-3：図鑑・お気に入り・バランス統合 ===== */
+  .ally-tools{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin:10px 0 12px;
+  }
+  .ally-tools select{
+    width:100%;
+    min-width:0;
+    padding:10px 9px;
+    border:2px solid #e4dcef;
+    border-radius:12px;
+    background:#fff;
+    color:#51495b;
+    font-size:11px;
+    font-weight:900;
+  }
+  .ally-filter-summary{
+    grid-column:1/-1;
+    padding:8px 10px;
+    border-radius:12px;
+    background:#f7f2ff;
+    color:#6e5a84;
+    font-size:10px;
+    font-weight:800;
+    text-align:center;
+  }
+  .favorite-spirit-button{
+    position:absolute;
+    left:7px;
+    top:7px;
+    z-index:5;
+    width:31px;
+    height:31px;
+    padding:0;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff;
+    color:#b6aead;
+    border:2px solid #eadfdd;
+    box-shadow:0 3px 8px rgba(0,0,0,.10);
+    font-size:17px;
+  }
+  .favorite-spirit-button.active{
+    color:#ffad00;
+    background:#fff8d9;
+    border-color:#ffd15b;
+  }
+  .companion-card.favorite-card:after{
+    content:"お気に入り";
+    position:absolute;
+    left:9px;
+    bottom:8px;
+    padding:2px 6px;
+    border-radius:999px;
+    background:#fff1a8;
+    color:#8a6200;
+    font-size:7px;
+    font-weight:1000;
+  }
+  .rarity-power-note{
+    margin:7px 0 4px;
+    padding:7px 9px;
+    border-radius:11px;
+    background:#eef9ff;
+    color:#386d82;
+    font-size:9px;
+    line-height:1.45;
+    font-weight:800;
+  }
+  .growth-summary.rarity-rare .growth-avatar{box-shadow:0 0 0 5px #d6f0ff,0 7px 18px rgba(53,155,218,.23)}
+  .growth-summary.rarity-superRare .growth-avatar{box-shadow:0 0 0 5px #ead9ff,0 0 20px rgba(147,83,219,.40)}
+  .growth-summary.rarity-legend .growth-avatar{box-shadow:0 0 0 5px #fff0a2,0 0 28px rgba(255,172,0,.62)}
+  .detail-rarity-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:5px 0}
+  .detail-favorite-button{
+    padding:6px 10px;
+    border-radius:999px;
+    background:#fff;
+    border:2px solid #eadfdd;
+    color:#777;
+    box-shadow:none;
+    font-size:10px;
+  }
+  .detail-favorite-button.active{background:#fff4bd;border-color:#ffc94d;color:#845c00}
+  .rarity-balance-table{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:5px;
+    margin-top:9px;
+  }
+  .rarity-balance-table div{
+    min-width:0;
+    padding:7px 3px;
+    border-radius:11px;
+    background:#f7f5f9;
+    text-align:center;
+    font-size:8px;
+    line-height:1.35;
+  }
+  .rarity-balance-table b{display:block;font-size:10px}
 
 
 
@@ -2239,7 +2426,7 @@
   @media(max-width:370px){.rc4-rare-button{right:6px;top:37px;padding:5px 7px;font-size:7px}.rc4-rare-title{font-size:11px}.rc4-rare-dialogue{font-size:8px}}
 
 
-  /* Version 1.0: natural sun and moon rendering */
+  /* Version 1.2 Phase2-3: natural sun and moon rendering */
   .home-sun{
     width:48px;height:48px;font-size:0;right:20px;top:14px;
     border-radius:50%;z-index:4;pointer-events:none;
@@ -2637,7 +2824,7 @@ header .brand{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 <body>
 <div class="app">
   <header>
-    <div class="brand">おうちヒーローズ <span class="v1-release-badge">Version 1.0</span></div>
+    <div class="brand">おうちヒーローズ <span class="v1-release-badge">Version 1.2 Phase2-3</span></div>
     <div class="points">⭐ <span id="points">0</span> pt</div>
   </header>
 
@@ -3015,6 +3202,23 @@ header .brand{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 
       <div class="card">
         <h3>仲間を選ぶ</h3>
+        <div class="ally-tools">
+          <select id="allyRarityFilter" onchange="setAllyRarityFilter(this.value)">
+            <option value="all">すべてのレア度</option>
+            <option value="normal">ノーマル</option>
+            <option value="rare">レア</option>
+            <option value="superRare">スーパーレア</option>
+            <option value="legend">レジェンド</option>
+            <option value="favorite">★ お気に入りだけ</option>
+          </select>
+          <select id="allySortMode" onchange="setAllySortMode(this.value)">
+            <option value="default">仲間になった順</option>
+            <option value="rarity">レア度が高い順</option>
+            <option value="level">レベルが高い順</option>
+            <option value="name">名前順</option>
+          </select>
+          <div id="allyFilterSummary" class="ally-filter-summary">図鑑を読み込み中…</div>
+        </div>
         <div id="companionGrid" class="companion-grid"></div>
       </div>
 
@@ -3023,6 +3227,12 @@ header .brand{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
         <div class="companion-story">
           <span>❤️</span>
           <p>一緒に専用クエストを達成すると、編成した仲間全員の「なかよしEXP」が増えるよ。レベルが上がるほど能力も強くなる！</p>
+        </div>
+        <div class="rarity-balance-table">
+          <div><b>◆ ノーマル</b>能力×1.00</div>
+          <div><b>★ レア</b>能力×1.08</div>
+          <div><b>★★ Sレア</b>能力×1.18</div>
+          <div><b>👑 伝説</b>能力×1.35</div>
         </div>
       </div>
     </section>
@@ -3196,7 +3406,7 @@ header .brand{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
       <button class="danger" onclick="showScreen('home')">親画面を閉じる</button>
     </section>
   </main>
-  <div class="v1-release-footer">おうちヒーローズ Version 1.1</div>
+  <div class="v1-release-footer">おうちヒーローズ Version 1.2 Phase2-3</div>
 
   <div id="celebrationOverlay" class="celebration-overlay">
     <div id="confettiLayer"></div>
@@ -3273,6 +3483,9 @@ let releasedEnemies = [];
 let companionTeam = ['popo'];
 let companionExp = {popo:0};
 let seenCompanions = ['popo'];
+let favoriteSpirits = [];
+let allyRarityFilter = 'all';
+let allySortMode = 'default';
 let customSpirits = [];
 let pendingSpirit = null;
 let customQuestCounts = {};
@@ -3589,7 +3802,7 @@ function finishReward(){
   saveGame();
 }
 
-// Version 1.0 成長バランス
+// Version 1.2 Phase2-3 成長バランス
 // 序盤は変化を感じやすく、イベント報酬が増える後半はゆっくり育つカーブ。
 const treeStages=[
   {level:1,leaves:0,icon:'🌱',name:'小さな芽',reward:'大樹が生まれた'},
@@ -3932,6 +4145,7 @@ function renderHomeFriends(){
       onclick="homeFriendTap('${c.id}')" aria-label="${d.name}と話す">
       <span class="friend-sprite-wrap">
         ${leader?'<span style="position:absolute;z-index:5;top:-17px;font-size:18px">👑</span>':''}
+        ${rarity.rank>1?`<span class="home-friend-rarity" title="${rarity.label}">${rarity.icon}</span>`:''}
         <span class="friend-personality-badge">${personality.icon} ${personality.label}</span>
         <span class="friend-action">✨</span>
         <span class="friend-character-rig" data-body-type="${bodyType}" title="${bodyTypeLabel(bodyType)}">
@@ -4219,42 +4433,277 @@ function changeParentPin(){
 
 const spiritTemplates = {
   clean:{
-    icons:['🦊','🐹','🧚','🐱'], starts:['ピカ','キラ','サラ','ツヤ'],
-    ends:['リン','ロン','ミン','ポン'], personalities:['きれい好き','まじめ','元気いっぱい'],
-    likes:['光る床','ふわふわモップ','きれいな空気'], phrases:['ピカッといこう！','きれいになるとうれしいね！'],
+    label:'おそうじ',
+    icons:['🦊','🐹','🧚','🐱','🦔','🐭','🧹','✨','🫧','🦝','🐿️','🪄'],
+    starts:['ピカ','キラ','サラ','ツヤ','クリン','シャイ','ミガ','スキ','フキ','ルン','パル','テリ'],
+    ends:['リン','ロン','ミン','ポン','リィ','マル','ピカ','ット','ルル','モア','ベル','ニコ'],
+    personalities:['きれい好き','まじめ','元気いっぱい','コツコツ派','気配り上手','負けず嫌い','おちゃめ','すばやい','ていねい','好奇心いっぱい','がんばり屋','頼れる'],
+    likes:['光る床','ふわふわモップ','きれいな空気','小さなほうき','ピカピカの窓','そろったぞうきん','石けんの香り','すっきりした部屋','ほこりのない棚','きれいな鏡','掃除のあとの休憩','家族の笑顔'],
+    phrases:['ピカッといこう！','きれいになるとうれしいね！','ひとふきで気分もすっきり！','小さな汚れも見つけたよ！','今日もピカピカ大作戦！','いっしょならすぐ終わるよ！','きれいなお部屋は気持ちいいね！','すみっこまで任せて！','あと少し、一緒にがんばろう！','おそうじパワー全開！','床が笑っているみたい！','仕上げはぼくに任せて！'],
+    descriptions:['お部屋のほこりを見つけるのが得意な精霊。','きれいになった場所でくるくる踊る精霊。','家族のおそうじをそっと応援する精霊。','小さな汚れも見逃さない、ていねいな精霊。','ピカピカの床から元気をもらう精霊。','掃除道具と仲良しな、お手伝い好きの精霊。'],
     ability:'通常クエストの獲得ポイントを少し応援', effect:{reward:1}
   },
   laundry:{
-    icons:['🐰','☁️','🦙','🧸'], starts:['タタ','フワ','セン','ソフ'],
-    ends:['ミン','リン','ロン','ティ'], personalities:['やさしい','几帳面','のんびり'],
-    likes:['ふわふわタオル','そろった靴下','おひさま'], phrases:['ふわっと仕上げよう！','きれいにたためたね！'],
+    label:'せんたく',
+    icons:['🐰','☁️','🦙','🧸','🐑','🫧','👕','🧦','🪽','🐇','🌤️','🧺'],
+    starts:['タタ','フワ','セン','ソフ','アワ','コット','シロ','サニ','クル','リネ','モコ','ハレ'],
+    ends:['ミン','リン','ロン','ティ','マル','フル','ピィ','ット','ベル','リオ','モア','ニコ'],
+    personalities:['やさしい','几帳面','のんびり','ふわふわ好き','世話好き','おだやか','ていねい','明るい','がんばり屋','おっとり','しっかり者','甘えん坊'],
+    likes:['ふわふわタオル','そろった靴下','おひさま','洗いたてのシャツ','やわらかい毛布','いい香りのせっけん','風に揺れる洗濯物','きれいなハンカチ','大きな洗濯かご','白い雲','たたんだパジャマ','あたたかい布団'],
+    phrases:['ふわっと仕上げよう！','きれいにたためたね！','おひさまの香りがするよ！','靴下の相棒を探そう！','しわをのばして気持ちもすっきり！','ふわふわパワーを届けるよ！','洗濯かごを空っぽにしよう！','たたむ時間も楽しくね！','今日もいい風だね！','やさしく整えていこう！','きれいな服で元気に出発！','最後の一枚までいっしょだよ！'],
+    descriptions:['洗いたての布から生まれた、ふわふわな精霊。','靴下の組み合わせを見つけるのが得意な精霊。','おひさまと洗濯物が大好きな精霊。','家族の服をやさしく整える精霊。','洗濯かごのそばで歌う、のんびりした精霊。','タオルをきれいにたたむと喜ぶ精霊。'],
     ability:'チームの固定攻撃を少し強化', effect:{flat:2}
   },
   kitchen:{
-    icons:['🐧','🦦','🐿️','🍳'], starts:['アワ','モグ','ココ','ペコ'],
-    ends:['プク','リン','マル','ット'], personalities:['食いしん坊','世話好き','てきぱき'],
-    likes:['きれいなお皿','いい香り','泡いっぱいのシンク'], phrases:['アワアワでいこう！','おいしい時間を守るよ！'],
+    label:'キッチン',
+    icons:['🐧','🦦','🐿️','🍳','🦭','🐣','🥄','🫧','🍽️','🐙','🥣','🧑‍🍳'],
+    starts:['アワ','モグ','ココ','ペコ','サラ','クル','ピカ','コト','プク','ツル','ミル','ポカ'],
+    ends:['プク','リン','マル','ット','ミン','ポン','ベル','リィ','ロン','ピィ','モア','ニコ'],
+    personalities:['食いしん坊','世話好き','てきぱき','明るい','気配り上手','好奇心いっぱい','しっかり者','おちゃめ','働き者','負けず嫌い','やさしい','元気いっぱい'],
+    likes:['きれいなお皿','いい香り','泡いっぱいのシンク','そろったスプーン','つやつやのコップ','あたたかいスープ','大きなお鍋','水の音','きれいなふきん','家族のごはん時間','ピカピカの流し台','料理のお手伝い'],
+    phrases:['アワアワでいこう！','おいしい時間を守るよ！','お皿をピカピカにしよう！','泡の山を作っちゃおう！','キッチンすっきり大作戦！','スプーンもにっこりしてるよ！','流し台まできれいにね！','あと一枚、いっしょに洗おう！','ごはんのあとはお片付け！','きれいな台所でまた作ろう！','水しぶきにも負けないよ！','仕上げのひとふき、任せて！'],
+    descriptions:['食器の音を聞くと元気になるキッチンの精霊。','泡の中を泳ぐのが得意な精霊。','家族の食事時間を守る、働き者の精霊。','きれいなお皿を並べるのが好きな精霊。','シンクが輝くと大喜びする精霊。','料理と片付けの両方を応援する精霊。'],
     ability:'魔法解除ボーナスを少し強化', effect:{sealRate:.08}
   },
   plant:{
-    icons:['🌱','🐸','🦋','🌼'], starts:['ミズ','ハナ','リフ','メブ'],
-    ends:['リィ','マル','リン','キー'], personalities:['おだやか','やさしい','好奇心いっぱい'],
-    likes:['ジョウロ','新しい芽','朝露'], phrases:['お花も喜んでるよ！','すくすく育てよう！'],
+    label:'植物のお世話',
+    icons:['🌱','🐸','🦋','🌼','🐞','🌿','🪴','🐌','🌻','🦜','🍀','💧'],
+    starts:['ミズ','ハナ','リフ','メブ','モリ','ツユ','クロ','ソヨ','ナエ','ヒナ','ララ','グリ'],
+    ends:['リィ','マル','リン','キー','ミン','ポン','ベル','ット','モア','ルル','ピィ','ニコ'],
+    personalities:['おだやか','やさしい','好奇心いっぱい','のんびり','おっとり','気配り上手','がんばり屋','恥ずかしがり','明るい','コツコツ派','世話好き','夢見がち'],
+    likes:['ジョウロ','新しい芽','朝露','やわらかい土','小さなつぼみ','木漏れ日','雨上がりの葉っぱ','色とりどりの花','風に揺れる草','大きな木','てんとう虫','家族と育てた植物'],
+    phrases:['お花も喜んでるよ！','すくすく育てよう！','お水をどうぞ！','新しい芽を見つけたよ！','土もふかふかにしよう！','葉っぱがきらきらしてるね！','今日も元気に育ってるよ！','植物のお話を聞いてみよう！','小さな変化を見つけたね！','やさしくお世話しよう！','明日はもっと大きくなるよ！','緑のパワーを届けるね！'],
+    descriptions:['小さな芽の成長を見守る植物の精霊。','葉っぱの声を聞くことができる精霊。','水やりの時間になると姿を見せる精霊。','花が咲く瞬間を楽しみにしている精霊。','土と太陽の力を集める、おだやかな精霊。','家族と植物の成長を一緒に喜ぶ精霊。'],
     ability:'専用クエストの攻撃力を少し強化', effect:{rate:.08}
   },
   pet:{
-    icons:['🐶','🐱','🐾','🐹'], starts:['ワン','モフ','ポチ','ニコ'],
-    ends:['ポ','リン','マル','ッチ'], personalities:['元気いっぱい','甘えん坊','勇敢'],
-    likes:['お散歩','なでなで','一緒に遊ぶこと'], phrases:['今日もいっしょに行こう！','お世話ありがとう！'],
+    label:'ペットのお世話',
+    icons:['🐶','🐱','🐾','🐹','🐕','🐈','🐇','🦜','🐢','🐠','🦴','🎾'],
+    starts:['ワン','モフ','ポチ','ニコ','タマ','コロ','ピョン','チロ','ルル','フク','ミミ','パル'],
+    ends:['ポ','リン','マル','ッチ','ベル','ミン','ロン','リィ','ット','モア','ピィ','ニコ'],
+    personalities:['元気いっぱい','甘えん坊','勇敢','遊び好き','やさしい','好奇心いっぱい','おちゃめ','さみしがり','頼れる','のんびり','気配り上手','負けず嫌い'],
+    likes:['お散歩','なでなで','一緒に遊ぶこと','お気に入りのおもちゃ','おやつの時間','ふかふかの寝床','きれいな水','ブラッシング','日なたぼっこ','名前を呼んでもらうこと','家族のそば','元気な足音'],
+    phrases:['今日もいっしょに行こう！','お世話ありがとう！','お散歩の準備はできた？','いっぱい遊ぼう！','きれいなお水をありがとう！','なでなでしてくれるとうれしいな！','おもちゃを元の場所に戻そう！','今日も元気でうれしいね！','ごはんの時間を忘れずに！','ふかふかの寝床にしよう！','家族みんなで見守ろう！','お世話の気持ちはちゃんと届いてるよ！'],
+    descriptions:['動物たちの気持ちに寄り添うお世話の精霊。','散歩の足音から生まれた元気な精霊。','なでてもらうと力が湧く、甘えん坊の精霊。','ペットと家族の絆を守る精霊。','ごはんや水の時間を教えてくれる精霊。','一緒に遊ぶ時間を何より大切にする精霊。'],
     ability:'チームの固定攻撃を強化', effect:{flat:3}
   },
   organize:{
-    icons:['🦝','🦉','🐿️','🤖'], starts:['ソロ','セイ','トト','ナラ'],
-    ends:['リン','エル','マル','ット'], personalities:['頭がいい','しっかり者','コツコツ派'],
-    likes:['そろった靴','整った本棚','決まった場所'], phrases:['元の場所へ戻そう！','そろうと気持ちいいね！'],
+    label:'整理整頓',
+    icons:['🦝','🦉','🐿️','🤖','📦','🧩','🗂️','🧸','🦫','🪄','📚','🧺'],
+    starts:['ソロ','セイ','トト','ナラ','キチ','ハコ','シマ','ピタ','スッ','クラ','モド','コツ'],
+    ends:['リン','エル','マル','ット','ミン','ポン','ベル','リィ','ロン','モア','ピィ','ニコ'],
+    personalities:['頭がいい','しっかり者','コツコツ派','几帳面','頼れる','ていねい','まじめ','気配り上手','負けず嫌い','おだやか','働き者','好奇心いっぱい'],
+    likes:['そろった靴','整った本棚','決まった場所','きれいに並んだ箱','片付いた机','ラベルのついた収納','そろったおもちゃ','空いた床','分類された文房具','たたんだ毛布','すっきりした玄関','探し物がすぐ見つかる部屋'],
+    phrases:['元の場所へ戻そう！','そろうと気持ちいいね！','ひとつずつ片付けよう！','仲間分けすると分かりやすいよ！','使ったら戻す、それが秘訣！','床が見えると広く感じるね！','箱の中もすっきりさせよう！','迷ったら置き場所を決めよう！','あとひとつで完成だよ！','きれいに並ぶとわくわくするね！','探し物のないお部屋にしよう！','整理整頓パワーで気分も軽く！'],
+    descriptions:['物の居場所を見つけるのが得意な整理の精霊。','散らかった場所を見ると腕が鳴る精霊。','本やおもちゃを仲間分けしてくれる精霊。','使った物を元へ戻す習慣を応援する精霊。','すっきりした空間から力をもらう精霊。','家族が探し物をしないよう見守る精霊。'],
     ability:'獲得報酬を少し増やす', effect:{reward:2}
   }
 };
+
+const SPIRIT_DATA_VERSION = 2;
+const SPIRIT_RARITIES = Object.freeze({
+  normal:{id:'normal',label:'ノーマル',rank:1,weight:70,icon:'◆',className:'rarity-normal',power:1.00},
+  rare:{id:'rare',label:'レア',rank:2,weight:20,icon:'★',className:'rarity-rare',power:1.08},
+  superRare:{id:'superRare',label:'スーパーレア',rank:3,weight:8,icon:'★★',className:'rarity-superRare',power:1.18},
+  legend:{id:'legend',label:'レジェンド',rank:4,weight:2,icon:'👑',className:'rarity-legend',power:1.35}
+});
+
+function spiritRarityInfo(value){
+  return SPIRIT_RARITIES[normalizeSpiritRarity(value)];
+}
+
+function rollSpiritRarity(randomValue=Math.random()){
+  const entries=Object.values(SPIRIT_RARITIES);
+  const total=entries.reduce((sum,item)=>sum+item.weight,0);
+  let roll=Math.max(0,Math.min(.999999,Number(randomValue) || 0))*total;
+  for(const item of entries){
+    roll-=item.weight;
+    if(roll<0) return item.id;
+  }
+  return 'normal';
+}
+
+function spiritRarityClass(spiritOrRarity){
+  const rarity=typeof spiritOrRarity==='string'
+    ? spiritOrRarity
+    : spiritOrRarity?.rarity;
+  return spiritRarityInfo(rarity).className;
+}
+
+function spiritRarityBadge(spiritOrRarity,compact=false){
+  const rarity=typeof spiritOrRarity==='string'
+    ? spiritOrRarity
+    : spiritOrRarity?.rarity;
+  const info=spiritRarityInfo(rarity);
+  return `<span class="spirit-rarity-badge ${info.className}" title="出現確率 ${info.weight}%">${info.icon}${compact?'':` ${info.label}`}</span>`;
+}
+
+function rarityAppearanceMessage(rarity){
+  const info=spiritRarityInfo(rarity);
+  if(info.id==='legend') return '🌈 伝説級の光があふれた！';
+  if(info.id==='superRare') return '✨ 強いきらめきが集まっている！';
+  if(info.id==='rare') return '⭐ めずらしい気配を感じる！';
+  return '🌱 やさしい精霊の気配を感じる。';
+}
+
+function spiritRarityPower(spiritOrRarity){
+  const rarity=typeof spiritOrRarity==='string' ? spiritOrRarity : spiritOrRarity?.rarity;
+  return spiritRarityInfo(rarity).power || 1;
+}
+
+function rarityAdjustedEffect(spirit){
+  const source=spirit?.effect || {};
+  const power=spiritRarityPower(spirit);
+  return {
+    flat:Math.round((Number(source.flat)||0)*power),
+    rate:(Number(source.rate)||0)*power,
+    sealRate:(Number(source.sealRate)||0)*power,
+    reward:Math.round((Number(source.reward)||0)*power)
+  };
+}
+
+function rarityAdjustedBonusText(spirit){
+  const effect=rarityAdjustedEffect(spirit);
+  if(effect.rate) return `攻撃＋${Math.round(effect.rate*100)}%`;
+  if(effect.sealRate) return `解除＋${Math.round(effect.sealRate*100)}%`;
+  if(effect.flat) return `攻撃＋${effect.flat}`;
+  if(effect.reward) return `報酬＋${effect.reward}`;
+  return spirit?.bonusText || '応援＋1';
+}
+
+function isFavoriteSpirit(id){
+  return favoriteSpirits.includes(id);
+}
+
+function toggleFavoriteSpirit(id){
+  if(!companions.some(c=>c.id===id)) return;
+  favoriteSpirits=isFavoriteSpirit(id)
+    ? favoriteSpirits.filter(x=>x!==id)
+    : [...favoriteSpirits,id];
+  if(selectedCompanionId===id && document.getElementById('companionDetail')?.classList.contains('active')){
+    renderCompanionDetail();
+  }
+  renderAllies(false);
+  saveGame();
+}
+
+function setAllyRarityFilter(value){
+  allyRarityFilter=['all','normal','rare','superRare','legend','favorite'].includes(value) ? value : 'all';
+  renderAllies();
+}
+
+function setAllySortMode(value){
+  allySortMode=['default','rarity','level','name'].includes(value) ? value : 'default';
+  renderAllies();
+}
+
+function filteredSortedCompanions(){
+  let list=[...companions];
+  if(allyRarityFilter==='favorite'){
+    list=list.filter(c=>isFavoriteSpirit(c.id));
+  }else if(allyRarityFilter!=='all'){
+    list=list.filter(c=>normalizeSpiritRarity(c.rarity)===allyRarityFilter);
+  }
+  if(allySortMode==='rarity'){
+    list.sort((a,b)=>spiritRarityInfo(b.rarity).rank-spiritRarityInfo(a.rarity).rank);
+  }else if(allySortMode==='level'){
+    list.sort((a,b)=>companionProgress(b.id).level-companionProgress(a.id).level);
+  }else if(allySortMode==='name'){
+    list.sort((a,b)=>(companionDisplay(a).name||'').localeCompare(companionDisplay(b).name||'','ja'));
+  }
+  return list;
+}
+
+function normalizeSpiritRarity(value){
+  return SPIRIT_RARITIES[value] ? value : 'normal';
+}
+
+function makeSpiritDescription(spirit={}){
+  if(typeof spirit.description==='string' && spirit.description.trim()){
+    return spirit.description.trim();
+  }
+  const name=spirit.name || 'この精霊';
+  const category=spirit.category || 'home';
+  const categoryText={
+    clean:'おそうじ',laundry:'せんたく',kitchen:'キッチン',
+    plant:'植物のお世話',pet:'ペットのお世話',organize:'整理整頓',
+    story:'おうちの冒険',home:'家族のお手伝い'
+  }[category] || '家族のお手伝い';
+  return `${categoryText}を応援する${name}。家族のがんばりと一緒に成長していく。`;
+}
+
+function normalizeSpiritRecord(spirit={},defaults={}){
+  const merged={...defaults,...spirit};
+  const id=typeof merged.id==='string' && merged.id ? merged.id : makeSpiritId(merged.name || 'spirit');
+  const evolutionStages=Array.isArray(merged.evolutionStages)
+    ? merged.evolutionStages.filter(stage=>stage && typeof stage==='object').map((stage,index)=>({
+        id:typeof stage.id==='string' && stage.id ? stage.id : `${id}_stage_${index+1}`,
+        name:stage.name || merged.name || '精霊',
+        icon:stage.icon || merged.icon || '✨',
+        stage:index,
+        level:Number.isFinite(Number(stage.level)) ? Number(stage.level) : 1,
+        friendship:Number.isFinite(Number(stage.friendship)) ? Number(stage.friendship) : 0,
+        story:Number.isFinite(Number(stage.story)) ? Number(stage.story) : 0,
+        chores:Number.isFinite(Number(stage.chores)) ? Number(stage.chores) : 0
+      }))
+    : [];
+
+  return {
+    ...merged,
+    id,
+    dataVersion:SPIRIT_DATA_VERSION,
+    rarity:normalizeSpiritRarity(merged.rarity),
+    description:makeSpiritDescription(merged),
+    evolutionId:typeof merged.evolutionId==='string' ? merged.evolutionId : null,
+    previousEvolutionId:typeof merged.previousEvolutionId==='string' ? merged.previousEvolutionId : null,
+    evolutionStages
+  };
+}
+
+function spiritRecordById(id){
+  return companions.find(spirit=>spirit.id===id) || null;
+}
+
+function syncSpiritEvolutionMetadata(){
+  companions.forEach(spirit=>{
+    const plan=getGrowthPlan(spirit);
+    spirit.evolutionStages=plan.map((stage,index)=>({
+      id:`${spirit.id}_stage_${index+1}`,
+      name:stage.name,
+      icon:stage.icon,
+      stage:index,
+      level:Number(stage.level || 1),
+      friendship:Number(stage.friendship || 0),
+      story:Number(stage.story || 0),
+      chores:Number(stage.chores || 0)
+    }));
+    const currentStage=companionStage(spirit.id);
+    spirit.evolutionId=spirit.evolutionStages[currentStage+1]?.id || null;
+    spirit.previousEvolutionId=spirit.evolutionStages[currentStage-1]?.id || null;
+  });
+}
+
+function normalizeAllSpiritRecords(){
+  for(let i=0;i<companions.length;i++){
+    companions[i]=normalizeSpiritRecord(companions[i],{
+      category:companions[i].isCustom ? companions[i].category : 'story',
+      rarity:companions[i].id==='legendpopo' ? 'legend' : 'normal'
+    });
+  }
+  customSpirits=customSpirits.map(spirit=>normalizeSpiritRecord(spirit,{
+    isCustom:true,
+    type:'おうち精霊',
+    rarity:'normal'
+  }));
+  if(pendingSpirit){
+    pendingSpirit=normalizeSpiritRecord(pendingSpirit,{
+      isCustom:true,
+      type:'おうち精霊',
+      rarity:'normal'
+    });
+  }
+  syncSpiritEvolutionMetadata();
+}
 
 function hashText(text){
   let h=0;
@@ -4321,7 +4770,13 @@ function generateSpiritCandidate(){
     unlockCount:Math.max(1,Math.round(unlockCount)),
     origin:`「${title}」から生まれた精霊`,
     createdAt:Date.now(),
-    approved:false
+    approved:false,
+    dataVersion:SPIRIT_DATA_VERSION,
+    rarity:rollSpiritRarity(),
+    description:`「${title}」のお手伝いから生まれた${name}。${t.descriptions[Math.floor(hash/17)%t.descriptions.length]}`,
+    evolutionId:null,
+    previousEvolutionId:null,
+    evolutionStages:[]
   };
   renderSpiritCandidate();
   saveGame();
@@ -4343,17 +4798,23 @@ function renderSpiritCandidate(){
     return;
   }
   const s=pendingSpirit;
+  const rarity=spiritRarityInfo(s.rarity);
   area.innerHTML=`
-    <div class="spirit-preview">
+    <div class="spirit-preview ${rarity.className}">
       <div class="spirit-preview-avatar">${s.icon}</div>
       <span class="spirit-origin">この家だけのおうち精霊</span>
+      ${spiritRarityBadge(s)}
       <h3>${s.name}</h3>
+      <p style="font-weight:900;margin:3px 0 8px;">${rarityAppearanceMessage(s.rarity)}</p>
       <p class="muted">${s.origin}</p>
       <div class="spirit-profile">
         <div><b>性格</b>${s.personality}</div>
         <div><b>好きなもの</b>${s.favorite}</div>
         <div><b>口ぐせ</b>「${s.phrase}」</div>
         <div><b>能力</b>${s.bonusText}</div>
+        <div><b>レア度</b>${spiritRarityInfo(s.rarity).label}（出現率 ${spiritRarityInfo(s.rarity).weight}%）</div>
+        <div><b>系統</b>${spiritTemplates[s.category]?.label || 'おうち精霊'}</div>
+        <div><b>紹介</b>${s.description || makeSpiritDescription(s)}</div>
       </div>
       <div class="spirit-home-note">
         親だけが完成した姿を確認できます。承認すると「${s.questTitle}」が登録され、
@@ -4381,20 +4842,26 @@ function regenerateSpiritCandidate(){
   pendingSpirit.personality=template.personalities[Math.floor(h/5)%template.personalities.length];
   pendingSpirit.favorite=template.likes[Math.floor(h/7)%template.likes.length];
   pendingSpirit.phrase=template.phrases[Math.floor(h/11)%template.phrases.length];
+  pendingSpirit.rarity=rollSpiritRarity();
+  pendingSpirit.description=`「${pendingSpirit.questTitle}」のお手伝いから生まれた${pendingSpirit.name}。${template.descriptions[Math.floor(h/17)%template.descriptions.length]}`;
   renderSpiritCandidate();
   saveGame();
 }
 
 function approveSpiritCandidate(){
   if(!pendingSpirit) return;
-  const s={
+  const s=normalizeSpiritRecord({
     ...pendingSpirit,
     approved:true,
     revealed:false,
     areaId:null,
     isCustom:true,
     unlockCount:pendingSpirit.unlockCount || 5
-  };
+  },{
+    isCustom:true,
+    type:'おうち精霊',
+    rarity:'normal'
+  });
   customSpirits.push(s);
   customQuestCounts[s.id]=0;
   syncCustomSpiritsIntoCompanions();
@@ -4416,27 +4883,42 @@ function approveSpiritCandidate(){
   updateStatus();
   renderParentDashboard();
   saveGame();
-  alert(`🌙 精霊の気配を感じます…\n\n「${s.questTitle}」を${s.unlockCount}回クリアすると、眠っている精霊が姿を現します！`);
+  const rarity=spiritRarityInfo(s.rarity);
+  alert(`${rarity.icon} ${rarity.label}精霊の気配を感じます…\n\n「${s.questTitle}」を${s.unlockCount}回クリアすると、眠っている${rarity.label}精霊が姿を現します！`);
 }
 
 function syncCustomSpiritsIntoCompanions(){
   customSpirits.forEach(s=>{
     const existing=companions.find(c=>c.id===s.id);
     if(existing){
-      existing.revealed=!!s.revealed;
-      existing.unlockCount=s.unlockCount || 5;
-      existing.questTitle=s.questTitle;
+      Object.assign(existing,normalizeSpiritRecord({
+        ...existing,
+        ...s,
+        revealed:!!s.revealed,
+        unlockCount:s.unlockCount || 5,
+        questTitle:s.questTitle
+      },{
+        isCustom:true,
+        rarity:'normal'
+      }));
       return;
     }
     if(!existing){
-      companions.push({
+      companions.push(normalizeSpiritRecord({
         id:s.id,name:s.name,icon:s.icon,areaId:null,type:'おうち精霊',
         ability:s.ability,bonusText:s.bonusText,
         unlockText:s.origin,effect:s.effect || {flat:1},
         isCustom:true,origin:s.origin,phrase:s.phrase,
+        personality:s.personality,favorite:s.favorite,
         unlockCount:s.unlockCount || 5,revealed:!!s.revealed,
-        questTitle:s.questTitle,category:s.category
-      });
+        questTitle:s.questTitle,category:s.category,
+        rarity:s.rarity,description:s.description,
+        evolutionId:s.evolutionId,previousEvolutionId:s.previousEvolutionId,
+        evolutionStages:s.evolutionStages
+      },{
+        isCustom:true,
+        rarity:'normal'
+      }));
     }
   });
 }
@@ -4691,6 +5173,9 @@ function saveGame(){
     companionTeam,
     companionExp,
     seenCompanions,
+    favoriteSpirits,
+    allyRarityFilter,
+    allySortMode,
     customSpirits,
     pendingSpirit,
     customQuestCounts,
@@ -4722,14 +5207,14 @@ function saveGame(){
     savedAt: Date.now()
   };
   try{
-    data.saveMeta={...(isPlainObject(data.saveMeta)?data.saveMeta:{}),gameVersion:'1.0',schemaVersion:V1_SAVE_SCHEMA_VERSION,savedAt:Date.now()};
+    data.saveMeta={...(isPlainObject(data.saveMeta)?data.saveMeta:{}),gameVersion:'1.2-phase2-3',schemaVersion:V1_SAVE_SCHEMA_VERSION,savedAt:Date.now()};
     commitMainSave(data);
   }catch(error){
     console.warn('セーブできませんでした', error);
   }
 }
 
-const V1_SAVE_SCHEMA_VERSION = 2;
+const V1_SAVE_SCHEMA_VERSION = 3;
 const OUCHI_SAVE_KEY = 'ouchiHeroesSave';
 const OUCHI_SAVE_TEMP_KEY = 'ouchiHeroesSave__writing';
 const OUCHI_SAVE_LAST_GOOD_KEY = 'ouchiHeroesSave__lastGood';
@@ -4765,7 +5250,36 @@ const SAVE_MIGRATIONS = {
     next.saveMeta=safeObject(next.saveMeta,{});
     next.saveMeta.migratedTo=2;
     next.saveMeta.migratedAt=Date.now();
-    next.saveMeta.gameVersion='1.0';
+    next.saveMeta.gameVersion='1.2-phase2-3';
+    return next;
+  },
+  2(data){
+    const next=cloneSaveValue(safeObject(data,{}));
+    next.schemaVersion=3;
+    next.customSpirits=safeArray(next.customSpirits,[]).map(spirit=>({
+      ...spirit,
+      dataVersion:Number(spirit?.dataVersion || 1),
+      rarity:typeof spirit?.rarity==='string' ? spirit.rarity : 'normal',
+      description:typeof spirit?.description==='string' ? spirit.description : '',
+      evolutionId:typeof spirit?.evolutionId==='string' ? spirit.evolutionId : null,
+      previousEvolutionId:typeof spirit?.previousEvolutionId==='string' ? spirit.previousEvolutionId : null,
+      evolutionStages:Array.isArray(spirit?.evolutionStages) ? spirit.evolutionStages : []
+    }));
+    if(isPlainObject(next.pendingSpirit)){
+      next.pendingSpirit={
+        ...next.pendingSpirit,
+        dataVersion:Number(next.pendingSpirit.dataVersion || 1),
+        rarity:typeof next.pendingSpirit.rarity==='string' ? next.pendingSpirit.rarity : 'normal',
+        description:typeof next.pendingSpirit.description==='string' ? next.pendingSpirit.description : '',
+        evolutionId:typeof next.pendingSpirit.evolutionId==='string' ? next.pendingSpirit.evolutionId : null,
+        previousEvolutionId:typeof next.pendingSpirit.previousEvolutionId==='string' ? next.pendingSpirit.previousEvolutionId : null,
+        evolutionStages:Array.isArray(next.pendingSpirit.evolutionStages) ? next.pendingSpirit.evolutionStages : []
+      };
+    }
+    next.saveMeta=safeObject(next.saveMeta,{});
+    next.saveMeta.migratedTo=3;
+    next.saveMeta.migratedAt=Date.now();
+    next.saveMeta.gameVersion='1.2-phase2-3';
     return next;
   }
 };
@@ -4904,7 +5418,7 @@ function loadGame(){
     const migrated=migrateSavedGameData(parsed,raw);
     const data = normalizeSavedGameData(migrated);
     if(Number(parsed.schemaVersion||0)!==V1_SAVE_SCHEMA_VERSION){
-      commitMainSave({...data,saveMeta:{...(data.saveMeta||{}),gameVersion:'1.0',schemaVersion:V1_SAVE_SCHEMA_VERSION,savedAt:Date.now()}});
+      commitMainSave({...data,saveMeta:{...(data.saveMeta||{}),gameVersion:'1.2-phase2-3',schemaVersion:V1_SAVE_SCHEMA_VERSION,savedAt:Date.now()}});
     }
 
     if(typeof data.parentPinCode==='string' && /^\d{4}$/.test(data.parentPinCode)) parentPinCode = data.parentPinCode;
@@ -4949,14 +5463,27 @@ function loadGame(){
     if(Array.isArray(data.companionTeam)) companionTeam = data.companionTeam.slice(0,3);
     if(data.companionExp && typeof data.companionExp === 'object') companionExp = data.companionExp;
     if(Array.isArray(data.seenCompanions)) seenCompanions = data.seenCompanions;
+    if(Array.isArray(data.favoriteSpirits)) favoriteSpirits = data.favoriteSpirits.filter(id=>typeof id==='string');
+    if(['all','normal','rare','superRare','legend','favorite'].includes(data.allyRarityFilter)) allyRarityFilter=data.allyRarityFilter;
+    if(['default','rarity','level','name'].includes(data.allySortMode)) allySortMode=data.allySortMode;
     if(Array.isArray(data.customSpirits)){
-      customSpirits = data.customSpirits.map(s=>({
+      customSpirits = data.customSpirits.map(s=>normalizeSpiritRecord({
         ...s,
         unlockCount:s.unlockCount || 5,
         revealed:typeof s.revealed==='boolean' ? s.revealed : true
+      },{
+        isCustom:true,
+        type:'おうち精霊',
+        rarity:'normal'
       }));
     }
-    if(data.pendingSpirit && typeof data.pendingSpirit === 'object') pendingSpirit = data.pendingSpirit;
+    if(data.pendingSpirit && typeof data.pendingSpirit === 'object'){
+      pendingSpirit = normalizeSpiritRecord(data.pendingSpirit,{
+        isCustom:true,
+        type:'おうち精霊',
+        rarity:'normal'
+      });
+    }
     if(data.customQuestCounts && typeof data.customQuestCounts === 'object') customQuestCounts = data.customQuestCounts;
     if(data.companionFriendship && typeof data.companionFriendship === 'object') companionFriendship = data.companionFriendship;
     if(data.companionGrowth && typeof data.companionGrowth === 'object') companionGrowth = data.companionGrowth;
@@ -5584,6 +6111,8 @@ function unlockedCompanions(){
 
 function normalizeCompanionData(){
   syncCustomSpiritsIntoCompanions();
+  normalizeAllSpiritRecords();
+  favoriteSpirits=[...new Set(favoriteSpirits)].filter(id=>companions.some(c=>c.id===id));
   syncPopoLegacyLevel();
 
   // 旧版でポポだけ別管理されていた「なかよし度」を仲間データへ移行する。
@@ -5865,10 +6394,11 @@ function getTeamEffects(){
     const c=companions.find(x=>x.id===id);
     if(!c) return;
     const lv=companionProgress(id).level;
-    effects.flat += (c.effect.flat || 0) + Math.floor((lv-1)/2);
-    effects.rate += (c.effect.rate || 0);
-    effects.sealRate += (c.effect.sealRate || 0);
-    effects.reward += (c.effect.reward || 0);
+    const adjusted=rarityAdjustedEffect(c);
+    effects.flat += adjusted.flat + Math.floor((lv-1)/2);
+    effects.rate += adjusted.rate;
+    effects.sealRate += adjusted.sealRate;
+    effects.reward += adjusted.reward;
   });
   return effects;
 }
@@ -5957,13 +6487,20 @@ function renderCompanionDetail(){
   const friendship=companionFriendValue(c.id);
   const customCount=c.isCustom ? (customQuestCounts[c.id] || 0) : storyProgressCount();
 
+  const rarity=spiritRarityInfo(c.rarity);
+  const favorite=isFavoriteSpirit(c.id);
   document.getElementById('growthSummary').innerHTML=`
-    <div class="growth-summary">
+    <div class="growth-summary ${rarity.className}">
       <div class="growth-avatar">${display.icon}</div>
       <div>
         <span class="growth-kind">${c.isCustom?'この家だけのおうち精霊':c.type}</span>
         <div class="growth-name">${display.name}</div>
+        <div class="detail-rarity-row">
+          ${spiritRarityBadge(c)}
+          <button class="detail-favorite-button ${favorite?'active':''}" onclick="toggleFavoriteSpirit('${c.id}')">${favorite?'★ お気に入り':'☆ お気に入り登録'}</button>
+        </div>
         <p class="muted">${c.phrase?`「${c.phrase}」`:c.ability}</p>
+        <div class="rarity-power-note">${rarity.label}補正：能力×${rarity.power.toFixed(2)}　実効能力「${rarityAdjustedBonusText(c)}」</div>
       </div>
     </div>
     <div class="growth-stat-grid">
@@ -6076,10 +6613,12 @@ function renderAllies(shouldSave=true){
       </div>`;
     }
     const display=companionDisplay(c);
-    return `<div class="team-slot ${index===0?'leader':''}">
+    const rarity=spiritRarityInfo(c.rarity);
+    return `<div class="team-slot ${index===0?'leader':''} ${rarity.className}">
       <div class="avatar">${display.icon}</div>
       <b>${index===0?'👑 ':''}${display.name}</b>
-      <small>Lv.${companionProgress(c.id).level}・${c.bonusText}</small>
+      ${spiritRarityBadge(c,true)}
+      <small>Lv.${companionProgress(c.id).level}・${rarityAdjustedBonusText(c)}</small>
     </div>`;
   }).join('');
 
@@ -6090,7 +6629,18 @@ function renderAllies(shouldSave=true){
   document.getElementById('allyUnlockedCount').textContent=unlocked.length;
   document.getElementById('allyTotalCount').textContent=companions.length;
 
-  document.getElementById('companionGrid').innerHTML=companions.map(c=>{
+  const rarityFilterEl=document.getElementById('allyRarityFilter');
+  const sortModeEl=document.getElementById('allySortMode');
+  if(rarityFilterEl) rarityFilterEl.value=allyRarityFilter;
+  if(sortModeEl) sortModeEl.value=allySortMode;
+  const visibleCompanions=filteredSortedCompanions();
+  const summaryEl=document.getElementById('allyFilterSummary');
+  if(summaryEl){
+    const favoriteCount=favoriteSpirits.filter(id=>companions.some(c=>c.id===id)).length;
+    summaryEl.textContent=`表示 ${visibleCompanions.length}/${companions.length}体　★お気に入り ${favoriteCount}体`;
+  }
+
+  document.getElementById('companionGrid').innerHTML=visibleCompanions.map(c=>{
     const unlockedNow=companionUnlocked(c);
     const inTeam=companionTeam.includes(c.id);
     const isNew=unlockedNow && !seenCompanions.includes(c.id);
@@ -6100,8 +6650,10 @@ function renderAllies(shouldSave=true){
       const target=c.unlockCount || 5;
       const remain=Math.max(0,target-current);
       const percent=Math.round(current/target*100);
-      return `<div class="companion-card locked sleeping-spirit-card">
+      const rarity=spiritRarityInfo(c.rarity);
+      return `<div class="companion-card locked sleeping-spirit-card ${rarity.className}">
         <div class="companion-avatar spirit-silhouette">${c.icon}</div>
+        ${spiritRarityBadge(c)}
         <span class="companion-level">おうち精霊の気配</span>
         <b>？？？</b>
         <span class="spirit-hint">「${c.questTitle}」が好きみたい…</span>
@@ -6117,18 +6669,22 @@ function renderAllies(shouldSave=true){
     }
 
     const display=unlockedNow?companionDisplay(c):null;
-    return `<div class="companion-card ${unlockedNow?'unlocked-card':''} ${unlockedNow?'':'locked'} ${inTeam?'in-team':''}" ${unlockedNow?`onclick="openCompanionDetail('${c.id}')"`:''}>
+    const rarity=spiritRarityInfo(c.rarity);
+    const favorite=isFavoriteSpirit(c.id);
+    return `<div class="companion-card ${rarity.className} ${favorite?'favorite-card':''} ${unlockedNow?'unlocked-card':''} ${unlockedNow?'':'locked'} ${inTeam?'in-team':''}" ${unlockedNow?`onclick="openCompanionDetail('${c.id}')"`:''}>
       ${isNew?'<span class="new-companion-badge">NEW</span>':''}
+      ${unlockedNow?`<button class="favorite-spirit-button ${favorite?'active':''}" onclick="event.stopPropagation();toggleFavoriteSpirit('${c.id}')" aria-label="お気に入り">${favorite?'★':'☆'}</button>`:''}
       <div class="companion-avatar">${unlockedNow?display.icon:'❓'}</div>
+      ${unlockedNow?spiritRarityBadge(c):''}
       <span class="companion-level">${unlockedNow?`Lv.${companionProgress(c.id).level}・${c.type}`:'未解放'}</span>
       <b>${unlockedNow?display.name:'？？？'}</b>
-      <p>${unlockedNow?`${c.ability}<br>${c.bonusText}${c.isCustom?`<br><span class="spirit-tag">この家だけの精霊</span>`:''}`:c.unlockText}</p>
+      <p>${unlockedNow?`${c.ability}<br>${rarityAdjustedBonusText(c)}${rarity.power>1?`<br><span class="spirit-tag">${rarity.label}補正 ×${rarity.power.toFixed(2)}</span>`:''}${c.isCustom?`<br><span class="spirit-tag">この家だけの精霊</span>`:''}`:c.unlockText}</p>
       <button onclick="event.stopPropagation();toggleCompanion('${c.id}')" ${unlockedNow?'':'disabled'}>
         ${unlockedNow?(inTeam?'チームから外す':'チームに入れる'):'まだ会えない'}
       </button>
       ${unlockedNow?`<button class="secondary detail-button" onclick="event.stopPropagation();openCompanionDetail('${c.id}')">成長と思い出を見る</button>`:''}
     </div>`;
-  }).join('');
+  }).join('') || '<div class="spirit-empty" style="grid-column:1/-1;">条件に合う仲間はまだいません。</div>';
 
   unlocked.forEach(c=>{
     if(!seenCompanions.includes(c.id)) seenCompanions.push(c.id);
@@ -7151,7 +7707,7 @@ bootOuchiHeroesV1();
 
 
 <style id="v1-home-ui-cleanup-style">
-/* Version 1.0: ホーム画面の最終整理 */
+/* Version 1.2 Phase2-3: ホーム画面の最終整理 */
 .rc1-environment-hud{
   display:inline-flex!important;align-items:center;justify-content:center;gap:0!important;
   margin:7px auto 0!important;padding:4px 8px;border-radius:999px;
@@ -7509,7 +8065,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       <button type="button" onclick="closeUpdateInfo()" aria-label="閉じる">✕</button>
     </div>
     <div class="update-version-card latest">
-      <div class="update-version-label"><span class="update-new-badge">最新</span> Version 1.1</div>
+      <div class="update-version-label"><span class="update-new-badge">最新</span> Version 1.2 Phase2-3</div>
       <ul>
         <li>🔐 親画面の暗証番号を変更できる機能を追加</li>
         <li>📢 ゲーム内でアップデート情報を確認できる画面を追加</li>
@@ -7520,7 +8076,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       </ul>
     </div>
     <details class="update-version-card">
-      <summary><b>Version 1.0</b></summary>
+      <summary><b>Version 1.2 Phase2-3</b></summary>
       <ul>
         <li>🎉 おうちヒーローズ公開</li>
         <li>📋 お手伝いクエスト</li>
@@ -7529,7 +8085,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         <li>🔒 親画面・セーブ機能</li>
       </ul>
     </details>
-    <div id="updateCheckStatus" class="update-status-box" aria-live="polite">現在のバージョン：1.1.0</div>
+    <div id="updateCheckStatus" class="update-status-box" aria-live="polite">現在のバージョン：1.2.3</div>
     <button class="orange" type="button" onclick="checkForGameUpdate(true)">最新版を確認する</button>
   </div>
 </div>
@@ -7537,7 +8093,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <div id="updateReleasePopup" class="update-release-popup" aria-hidden="true">
   <div class="update-release-popup-card" role="dialog" aria-modal="true" aria-labelledby="updateReleaseTitle">
     <div class="update-release-icon">🎉</div>
-    <h2 id="updateReleaseTitle">Version 1.1に更新されました！</h2>
+    <h2 id="updateReleaseTitle">Version 1.2 Phase2-3に更新されました！</h2>
     <p>暗証番号の変更、アップデート情報、NEW表示などが追加されました。これまでのセーブデータはそのまま遊べます。</p>
     <button class="primary" type="button" onclick="closeReleasePopup(true)">更新内容を見る</button>
     <button class="secondary" type="button" onclick="closeReleasePopup(false)" style="margin-top:8px;">あとで見る</button>
@@ -7547,8 +8103,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <script id="v1UpdateInfoSystem">
 (function(){
 'use strict';
-const CURRENT_VERSION='1.1.0';
-const LATEST_NEWS_ID='release-1.1.0';
+const CURRENT_VERSION='1.2.3';
+const LATEST_NEWS_ID='release-1.2.3';
 const SEEN_NEWS_KEY='ouchiHeroesSeenUpdateNews';
 const SEEN_RELEASE_KEY='ouchiHeroesSeenReleasePopup';
 const VERSION_URL='./version.json';
@@ -7569,7 +8125,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <script id="v1-final-release-meta">
 window.OUCHI_HEROES_RELEASE=Object.freeze({
   name:'おうちヒーローズ',
-  version:'1.1.0',
+  version:'1.2.3',
   saveSchemaVersion:2,
   releaseChannel:'stable',
   completedAt:'2026-07-23'
